@@ -1,0 +1,12 @@
+from secrets import token_bytes
+from typing import Tuple
+
+def random_key(length:int) -> int:
+    key:bytes = token_bytes(nbytes=length)
+    key_int:int = int.from_bytes(key, 'big')
+    return key_int
+def encrypt(raw:str) -> Tuple[int, int]:
+    raw_bytes:bytes = raw.encode()
+    raw_int:int = int.from_bytes(raw_bytes, 'big')
+    key_int:int = random_key(len(raw_bytes))
+    return raw_int ^ key_int, key_int
